@@ -1,0 +1,36 @@
+{% extends "homepage.html" %}
+
+{% block content %}
+<form method="post">
+    <input type="hidden" name="book_id" value="{{book[0]}}"/>
+    <table class="table">
+        <tr><td>Book ID</td><td>{{book[0]}}</td></tr>
+        <tr><td>Book Name</td><td>{{book[1]}}</td></tr>
+        <tr><td>Book Price</td><td>{{book[2]}}</td></tr>
+        <tr><td>Book Description</td><td>{{book[3]}}</td></tr>
+        <tr><td>Book Image</td>
+            <td>
+                <img src="{{ url_for('static', filename=book[4]) }}"
+                     style="height:200px;width:200px"
+                     class="img-circle"/>
+            </td>
+        </tr>
+        <tr><td>Select Book Quantity</td>
+            <td>
+                <select name="qty" class="form-control" style="width: 70px;">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button class="btn btn-danger" type="submit">Add To Cart</button>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

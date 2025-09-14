@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillFull Book Shop</title>
+    <style>
+        body
+        {
+            background-image: url("{{ url_for('static', filename='bookwall.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <table border="1">
+            <tr><td><a href="/showAllBooks"><button>Show All Books</button></a></td></tr>
+            <tr><td><a href="/showAllCategory"><button>Show All Category</button></a></td></tr>
+        </table>
+    </center>
+</body>
+</html>

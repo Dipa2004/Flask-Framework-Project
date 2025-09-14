@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Book Shop</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      background-image: url('{{url_for("static",filename="wallpaper.jpg")}}');
+      margin-bottom: 0;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="jumbotron" style="background: url('/static/book2.jpg') no-repeat center center; background-size: cover; color: white;">
+  <div class="container text-center">
+    <h1>Online SkillFull Bookshop</h1>      
+    <p>Find your favorite novels, educational guides, and bestsellers — all in one place with secure online ordering.</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      {%if "uname" in session%}
+      <a class="navbar-brand" href="#">Welcome {{session["uname"]}}</a>
+      {%else%}
+      <a class="navbar-brand" href="#">Welcome Guest!!</a>
+      {%endif%}
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Booklist
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {%for cat in cats%}
+          <li><a href="/ViewBooks/{{cat[0]}}">{{cat[1]}}</a></li>
+            {%endfor%}
+        </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {%if "uname" in session%}
+        <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        <li><a href="/myorders"><span class="glyphicon glyphicon-list-alt"></span> My Orders</a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Logout </a></li>
+      {%else%}
+        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login </a></li>
+      {%endif%}
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+{%block content%}
+<div class="container">    
+  <div class="row">
+        {%for book in books%}
+    <div class="col-sm-4">    
+      <div class="panel panel-primary">
+        <div class="panel-heading">{{book[1]}}</div>
+        <div class="panel-body"><img src="{{url_for('static',filename=book[4])}}" 
+            class="img-responsive" style="width:120px;height: 120px;" alt="Image"></div>
+        <div class="panel-footer">Price {{book[2]}}
+          <a href="/ViewDetails/{{book[0]}}"><button class="btn btn-danger">View Details</button></a>
+
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div><br><br>
+{%endblock%}
+
+</body>
+</html>

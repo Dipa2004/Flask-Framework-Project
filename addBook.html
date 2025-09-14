@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillFull Book Shop</title>
+    <style>
+        body
+        {
+            background-image: url("{{ url_for('static', filename='bookwall.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Add New Book</h1>
+        <hr/>
+        <form method="post" enctype="multipart/form-data">
+        <table border="1">
+            <tr><td>Enter Book Name</td>
+            <td><input type="text" name="cname" required/></td></tr>
+            <tr><td>Enter Price</td>
+            <td><input type="number" name="price" required/></td></tr>
+            <tr><td>Enter Description</td>
+            <td><input type="text" name="description" required/></td></tr>
+            <tr><td>Select Image</td>
+            <td><input type="file" name="image_url" required/></td></tr>
+            <tr><td>Enter Quantity</td>
+            <td><input type="number" name="quantity" required/></td></tr>
+            <tr>
+            <td>Select Book</td>
+            <td><select name="cid">
+                {%for cat in cats%}
+                <option value="{{cat[0]}}">{{cat[1]}}</option>
+                {%endfor%}
+            </select></td></tr>
+            <tr><td><input type="submit" value="Add Book"/></td><td></td></tr>
+        </table>
+        </form>
+    </center>
+</body>
+</html>

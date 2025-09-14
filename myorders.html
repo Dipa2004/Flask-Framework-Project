@@ -1,0 +1,33 @@
+{% extends "homepage.html" %}
+{% block content %}
+<div class="container">
+  <h2>My Orders</h2>
+
+  {% if orders %}
+  <table class="table table-bordered">
+    <tr>
+      <th>Order ID</th>
+      <th>Book Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+      <th>Order Date</th>
+    </tr>
+    {% for o in orders %}
+    <tr>
+      <td>{{ o.id }}</td>
+      <td>{{ o.book_title }}</td>
+      <td>{{ o.qty }}</td>
+      <td>{{ o.price }}</td>
+      <td>{{ o.subtotal }}</td>
+      <td>{{ o.order_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <div class="alert alert-info">
+      You have no orders yet.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

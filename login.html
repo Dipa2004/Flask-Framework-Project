@@ -1,0 +1,13 @@
+{%extends "homepage.html"%}
+
+{%block content%}
+<form method="post">
+<table class="table">
+    <tr><td>User Id</td>
+        <td><input type="text" name="uname" required class="form-control" /></td></tr>
+    <tr><td>Password</td>
+        <td><input type="text" name="pwd" class="form-control"  required/></td></tr>
+    <tr><td><button class="btn btn-danger" type="submit">Login</button></td></tr>
+</table>
+</form>
+{%endblock%}

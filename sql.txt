@@ -1,0 +1,312 @@
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| cakeshopdb          |
+| demo                |
+| dipali              |
+| ebooks              |
+| employee            |
+| febmarchmearged     |
+| information_schema  |
+| interviewcandidates |
+| march_april_db      |
+| mysql               |
+| performance_schema  |
+| product             |
+| sys                 |
+| world               |
++---------------------+
+14 rows in set (0.02 sec)
+
+mysql> create database OnlineBookStore;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| cakeshopdb          |
+| demo                |
+| dipali              |
+| ebooks              |
+| employee            |
+| febmarchmearged     |
+| information_schema  |
+| interviewcandidates |
+| march_april_db      |
+| mysql               |
+| onlinebookstore     |
+| performance_schema  |
+| product             |
+| sys                 |
+| world               |
++---------------------+
+15 rows in set (0.00 sec)
+
+mysql> use onlinebookstore;
+Database changed
+mysql> create table Category(cid int primary key auto_increment,cname varchar(20));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> create table Book(book_id int primary key auto_increment,book_title varchar(20),price float,description varchar(50),image_url varchar(50),quantity int,cid int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++---------------------------+
+| Tables_in_onlinebookstore |
++---------------------------+
+| book                      |
+| category                  |
++---------------------------+
+2 rows in set (0.01 sec)
+
+mysql> alter table Book add foreign key(cid) references Category(cid);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>mysql> describe category;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| cid   | int         | NO   | PRI | NULL    | auto_increment |
+| cname | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.02 sec)
+
+mysql> select * from category;
++-----+----------------------+
+| cid | cname                |
++-----+----------------------+
+|   1 | Bhagavad Gita        |
+|   2 | Bhagavad Gita        |
+|   3 | Bhagavad Gita        |
+|   4 | Bhagavad Gita        |
+|   5 | Ramayan              |
+|   6 | Bhakti Poems         |
+|   7 | Hanuman Chalisa      |
+|   8 | Psychology           |
+|   9 | Business & Economics |
+|  10 | Art & Photography    |
+|  11 | Research/Theses      |
+|  12 | Textbooks            |
+|  13 | Reference Books      |
+|  14 | Poetry               |
++-----+----------------------+
+14 rows in set (0.00 sec)
+
+
+mysql> select * from category;
++-----+----------------------+
+| cid | cname                |
++-----+----------------------+
+|   1 | Bhagavad Gita        |
+|   2 | Dnyaneshwari         |
+|   5 | Ramayan              |
+|   6 | Bhakti Poems         |
+|   7 | Hanuman Chalisa      |
+|   8 | Psychology           |
+|   9 | Business & Economics |
+|  10 | Art & Photography    |
+|  11 | Research/Theses      |
+|  12 | Textbooks            |
+|  13 | Reference Books      |
+|  14 | Poetry               |
++-----+----------------------+
+12 rows in set (0.01 sec)
+
+mysql> select * from book;
++---------+-----------------+-------+------------------------------------------------+---------------------------+----------+------+
+| book_id | book_title      | price | description                                    | image_url                 | quantity | cid  |
++---------+-----------------+-------+------------------------------------------------+---------------------------+----------+------+
+|       1 | Bhagavad Gita   |   450 |  The Bhagavad-Gita is a universal truth .      | Images/bhagvadgeeta.jpg   |     NULL |    1 |
+|       2 | Hanuman Chalisa |   150 | Hanuman is a devotee of the Hindu god, Rama    | Images/hanumanchalisa.jpg |     NULL |    7 |
+|       3 | Ramayan         |   550 | The Ramayana is Hindu epic about Ram and Sita. | Images/ramayan.jpg        |     NULL |    5 |
+|       4 | Dnyaneshwari    |   450 | Learn about his devotion, teachings            | Images/dnyaneshwari.jpg   |     NULL |    2 |
++---------+-----------------+-------+------------------------------------------------+---------------------------+----------+------+
+4 rows in set (0.01 sec)
+
+mysql> select c.book_id,c.book_title,c.price,c.description,c.image_url,c.quantity,cat.cname from Book c inner join category cat on c.cid = cat.cid;
++---------+-----------------+-------+------------------------------------------------+---------------------------+----------+-----------------+
+| book_id | book_title      | price | description                                    | image_url                 | quantity | cname           |
++---------+-----------------+-------+------------------------------------------------+---------------------------+----------+-----------------+
+|       1 | Bhagavad Gita   |   450 |  The Bhagavad-Gita is a universal truth .      | Images/bhagvadgeeta.jpg   |     NULL | Bhagavad Gita   |
+|       2 | Hanuman Chalisa |   150 | Hanuman is a devotee of the Hindu god, Rama    | Images/hanumanchalisa.jpg |     NULL | Hanuman Chalisa |
+|       3 | Ramayan         |   550 | The Ramayana is Hindu epic about Ram and Sita. | Images/ramayan.jpg        |     NULL | Ramayan         |
+|       4 | Dnyaneshwari    |   450 | Learn about his devotion, teachings            | Images/dnyaneshwari.jpg   |     NULL | Dnyaneshwari    |
++---------+-----------------+-------+------------------------------------------------+---------------------------+----------+-----------------+
+4 rows in set (0.01 sec)
+
+mysql> create view book_book as(select c.book_id,c.book_title,c.price,c.description,c.image_url,c.quantity,cat.cname from Book c inner join category cat on c.cid = cat.cid);
+Query OK, 0 rows affected (0.05 sec)
+
+ create table adminlogin (username varchar(20) primary key, password
+    -> varchar(20));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into adminlogin values ('admin1', 'admin@123');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into adminlogin values ('admin2', 'admin@123');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from adminlogin where username='admin1' and password='admin@123';
++----------+-----------+
+| username | password  |
++----------+-----------+
+| admin1   | admin@123 |
++----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from adminlogin where username='admin1' and password='admin@123';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from adminlogin where username='admin1' and password='admin@1234';
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> create table user_info(username varchar(20) primary key ,password varchar(20));
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> create table mycart(id int primary key auto_increment,book_id int,qty int,
+    -> username varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table mycart add foreign key(book_id) references book(book_id);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table mycart add foreign key(username) references user_info(username);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from user_info;
++----------+----------+
+| username | password |
++----------+----------+
+| dipa     | 1234     |
++----------+----------+
+1 row in set (0.01 sec)
+
+
+mysql> select * from mycart;
++----+---------+------+----------+
+| id | book_id | qty  | username |
++----+---------+------+----------+
+|  1 |       2 |    2 | dipa     |
++----+---------+------+----------+
+1 row in set (0.00 sec)
+
+
+mysql> CREATE VIEW mycart_vw AS
+    -> SELECT
+    ->     b.book_id,
+    ->     b.book_title AS book_name,
+    ->     b.price,
+    ->     b.image_url,
+    ->     m.id,
+    ->     m.username,
+    ->     m.qty,
+    ->     (m.qty * b.price) AS SubTotal
+    -> FROM book b
+    -> INNER JOIN mycart m
+    ->     ON b.book_id = m.book_id;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from mycart_vw;
++---------+-----------------+-------+---------------------------+----+----------+------+----------+
+| book_id | book_name       | price | image_url                 | id | username | qty  | SubTotal |
++---------+-----------------+-------+---------------------------+----+----------+------+----------+
+|       2 | Hanuman Chalisa |   150 | Images/hanumanchalisa.jpg |  1 | dipa     |    2 |      300 |
++---------+-----------------+-------+---------------------------+----+----------+------+----------+
+1 row in set (0.01 sec)
+
+mysql> create table Account_Details(cardno varchar(10) primary key,
+    -> cvv varchar(10),expiry varchar(20),balance float);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into Account_Details values('1234','123','12/2030',10000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Account_Details values('4321','321','12/2030',10000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from account_details;
++--------+------+---------+---------+
+| cardno | cvv  | expiry  | balance |
++--------+------+---------+---------+
+| 1234   | 123  | 12/2030 |   10000 |
+| 4321   | 321  | 12/2030 |   10000 |
++--------+------+---------+---------+
+2 rows in set (0.00 sec)
+
+
+mysql> create table Account_Details(cardno varchar(10) primary key,
+    -> cvv varchar(10),expiry varchar(20),balance float);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into Account_Details values('1234','123','12/2030',10000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Account_Details values('4321','321','12/2030',10000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from account_details;
++--------+------+---------+---------+
+| cardno | cvv  | expiry  | balance |
++--------+------+---------+---------+
+| 1234   | 123  | 12/2030 |   10000 |
+| 4321   | 321  | 12/2030 |   10000 |
++--------+------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> create table order_master
+    -> (id int primary key auto_increment,date_of_order date,
+    -> amount float,username varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> alter table mycart add order_id int default null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop view mycart_vw;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE VIEW mycart_vw AS
+    -> SELECT
+    ->     b.book_id,
+    ->     b.book_title,
+    ->     b.price,
+    ->     b.image_url,
+    ->     m.id,
+    ->     m.username,
+    ->     m.qty,
+    ->     (m.qty * b.price) AS SubTotal,
+    ->     m.order_id
+    -> FROM book b
+    -> INNER JOIN mycart m
+    ->     ON b.book_id = m.book_id;
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> CREATE TABLE orders (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     username VARCHAR(20),
+    ->     book_id INT,
+    ->     qty INT,
+    ->     price DECIMAL(10,2),
+    ->     subtotal DECIMAL(10,2),
+    ->     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ->     FOREIGN KEY (username) REFERENCES user_info(username),
+    ->     FOREIGN KEY (book_id) REFERENCES book(book_id)
+    -> );
+Query OK, 0 rows affected (0.16 sec)
